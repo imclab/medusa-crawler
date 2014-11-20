@@ -1,0 +1,47 @@
+{
+    "total" : {
+        "params" : {
+            "tpage" : "json",
+            "method" : "GET",
+            "retry" : 10
+        },
+        "emiter" : [
+            {
+               "name" : ["totalNum"],
+               "selector" :  ".totalNum",
+               "trans" : [
+                    "function(){  ...
+                        var urls = []; ...
+                        for(var p = 0; p < 2; p++){ ...
+                            urls.push(util.format('http://image.baidu.com/data/imgs?col=%E7%BE%8E%E5%A5%B3&tag=%E5%85%A8%E9%83%A8&sort=0&tag3=&pn=%d&rn=60&p=channel&from=1', p*60)); ...
+                        } ...
+                        return urls; ...
+                    }"
+                ],
+               "parser_name" : "imgs"
+            }
+        ]
+    },
+    "imgs" : {
+        "params" : {
+            "tpage" : "json",
+            "method" : "GET",
+            "retry" : 10
+        },
+        "emiter" : [
+            {
+               "name" : ["imgs"],
+               "selector" :  ".imgs",
+               "foreach" : [".imageUrl"],
+               "parser_name" : "download"
+            }
+        ]
+    },
+    "download" : {
+        "params" : {
+            "download" : true,
+            "method" : "GET",
+            "retry" : 0
+        }
+    }
+}

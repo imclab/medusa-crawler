@@ -1,0 +1,73 @@
+{
+    "total" : {
+        "params" : {
+			"retry" : 10,
+			"headers" : {
+				"User-Agent" : "Mozilla/5.0 (Windows NT 6.1) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/29.0.1547.66 Safari/537.36 LBBROWSER"
+			}
+        },
+        "emiter" : [
+            {
+               "name" : ["maxPage"],
+               "selector" :  "$('.t3 .pages a').eq(4)",
+               "foreach" : ["text()"],
+                "trans" : [
+                    "function(){  ...
+                        var urls = []; ...
+                        for(var p = 1; p <= 1; p++){ ...
+                            urls.push(util.format('http://www.zlvc.net/thread0806.php?fid=16&search=&page=%d', p)); ...
+                        } ...
+                        return urls; ...
+                    }"
+                ],
+               "parser_name" : "list"
+            }
+        ]
+    },
+    "list" : {
+        "params" : {
+			"retry" : 3,
+			"headers" : {
+				"User-Agent" : "Mozilla/5.0 (Windows NT 6.1) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/29.0.1547.66 Safari/537.36 LBBROWSER"
+			}
+        },
+		"emiter" : [
+            {
+               "name" : ["post"],
+               "selector" :  "$('.tr3.t_one td h3 a')",
+               "foreach" : ["attr('href')"],
+                "trans" : [
+                    "function(){  ...
+						return util.format('http://dou.lesile.net/%s', arguments[0]); ...
+                    }"
+                ],
+               "parser_name" : "imgs"
+            }
+        ]
+    },
+	"imgs" : {
+        "params" : {
+			"retry" : 3,
+			"headers" : {
+				"User-Agent" : "Mozilla/5.0 (Windows NT 6.1) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/29.0.1547.66 Safari/537.36 LBBROWSER"
+			}
+        },
+		"emiter" : [
+            {
+               "name" : ["imgurl"],
+               "selector" :  "$('.tpc_content input')",
+               "foreach" : ["attr('src')"],
+               "parser_name" : "download"
+            }
+        ]
+    },
+	"download" : {
+        "params" : {
+			"retry" : 3,
+			"download" : true,
+			"headers" : {
+				"User-Agent" : "Mozilla/5.0 (Windows NT 6.1) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/29.0.1547.66 Safari/537.36 LBBROWSER"
+			}
+        }
+    }
+}

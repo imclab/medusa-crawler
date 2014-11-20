@@ -1,0 +1,37 @@
+{
+  "name": "medusa-crawler",
+  "version": "0.0.1",
+  "description": "a configureable distributed crawler",
+  "main": "index.js",
+  "author": "hiyijian",
+  "private": false,
+  "license": "BSD",
+  "dependencies": {
+    "express": "4.4.5",
+    "socket.io": "1.0.6",
+    "socket.io-client": "1.0.6",
+    "xmlreader": "0.2.3",
+    "uuid ": "1.4.1"
+  },
+  "directories": {
+    "doc": "doc",
+    "test": "test"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "distributed",
+    "crawler"
+  ],
+  "dependencies": {
+	"express": "4.4.5",
+	"socket.io" : "1.0.6",
+	"socket.io-client": "1.0.6",
+	"uuid " : "1.4.1",
+    "request" : "2.38.0",
+    "cheerio" : "0.17.0",
+    "graceful-fs" : "3.0.2",
+    "iconv-lite" : "0.4.4"
+  }
+}

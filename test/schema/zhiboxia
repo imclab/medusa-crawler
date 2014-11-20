@@ -1,0 +1,52 @@
+{
+    "zhibo" : {
+        "params" : {
+            "method" : "GET",
+            "tpage" : "html"
+        },
+        "infields" : [
+            {
+                "name" : ["leaguename"],
+                "selector" : ".base-content .box .list ul li a[title]",
+                "foreach" : ["text()"]
+            },
+            {
+                "name" : ["matchday"],
+                "selector" : ".base-content .box .title .box-title",
+                "foreach" : ["text()"],
+                "extend" : {
+                    "group" : ".base-content .box .list ul",
+                    "group_item"  : "li"
+                }
+            },
+            {
+                "name" : ["zhibo"],
+                "selector" : ".base-content .box .list ul li a:not(.match-name):not(.info)",
+                "foreach" : ["text()"],
+                "group" : {
+                    "group" : ".base-content .box .list ul li",
+                    "group_item"  : "a:not(.match-name):not(.info)"
+                }
+            }
+        ],
+        "outfields" : [
+            ["leaguename"],
+            ["matchday"],
+            ["zhibo"]
+        ],
+        "emiter" : [
+            {
+               "name" : ["news_url"],
+               "selector" :  ".sidebar-news li a",
+               "foreach" : ["attr('href')"],
+               "trans" : ["function(){return util.format('http://www.zhiboxia.com%s', arguments[0]);}"],
+               "parser_name" : "news"
+            }
+        ]
+    },
+    "news" : {
+        "params" : {
+            "method" : "GET"
+        }
+    }
+}

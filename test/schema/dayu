@@ -1,0 +1,42 @@
+{
+    "total" : {
+        "params" : {
+            "tpage" : "json"
+        },
+        "emiter" : [
+            {
+               "name" : ["total"],
+               "selector" :  ".total",
+               "trans" : [
+                    "function(){  ...
+                        var urls = []; ...
+                        for(var p = 1; p <= Math.floor(arguments[0] / 20); p++){ ...
+                            urls.push(util.format('http://api.cq.qq.com/baoliao/api.php?action=get_content_list&feed_id=20&page=%d', p)); ...
+                        } ...
+                        return urls; ...
+                    }"
+                ],
+               "parser_name" : "news_list"
+            }
+        ]
+    },
+    "news_list" : {
+        "params" : {
+            "tpage" : "json",
+            "download" : true
+        },
+        "infields" : [
+            {
+                "name" : ["content_id", "title", "nick", "c_time"],
+                "selector" : ".content_list",
+                "foreach" : [".content_id", ".title", ".nick", ".c_time"]
+            }
+        ],
+        "outfields" : [
+            ["content_id"],
+            ["title"],
+            ["nick"],
+            ["c_time"]
+        ]
+    }
+}
